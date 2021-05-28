@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://ak:ak123@passworddepot.tbuln.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret":"secret"
+}
