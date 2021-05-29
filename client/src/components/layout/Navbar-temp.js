@@ -19,7 +19,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
-import Button from "@material-ui/core/Button";
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -95,6 +95,10 @@ function Navbar({ title, icon }) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -118,16 +122,9 @@ function Navbar({ title, icon }) {
   };
   const authLinks = (
     <div className={classes.sectionDesktop}>
-      {user && (
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          startIcon={<AccountCircle />}
-        >
-          {user.name}
-        </Button>
-      )}
+      <Typography variant="h4" gutterBottom>
+        {user && user.name}
+      </Typography>
       <Button
         onClick={onLogout}
         variant="contained"
@@ -141,7 +138,7 @@ function Navbar({ title, icon }) {
   );
   const guestLinks = (
     <div className={classes.sectionDesktop}>
-      <Link to="/register" style={{ textDecoration: "none" }}>
+      <Link to="/register">
         <Button
           variant="contained"
           color="secondary"
@@ -151,7 +148,7 @@ function Navbar({ title, icon }) {
           Register
         </Button>
       </Link>
-      <Link to="/login" style={{ textDecoration: "none" }}>
+      <Link to="/login">
         <Button
           variant="contained"
           color="secondary"
@@ -232,29 +229,20 @@ function Navbar({ title, icon }) {
         </IconButton>
         <p>Messages</p>
       </MenuItem> */}
-
       <MenuItem>
-        <Link to="/register" style={{ textDecoration: "none" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<VpnKeyIcon />}
-          >
-            Register
-          </Button>
+        <Link to="/register">
+          <IconButton color="inherit">
+            <VpnKeyIcon />
+          </IconButton>
+          <p>Register</p>
         </Link>
       </MenuItem>
       <MenuItem>
-        <Link to="/login" style={{ textDecoration: "none" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<LockOpenIcon />}
-          >
-            Login
-          </Button>
+        <Link to="/login">
+          <IconButton color="inherit">
+            <LockOpenIcon />
+          </IconButton>
+          <p>Login</p>
         </Link>
       </MenuItem>
     </Menu>
@@ -262,7 +250,7 @@ function Navbar({ title, icon }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"

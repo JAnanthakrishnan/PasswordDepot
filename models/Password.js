@@ -11,7 +11,7 @@ const PasswordSchema = mongoose.Schema({
   username: {
     type: String,
   },
-  password: {
+  pword: {
     type: String,
   },
   team: {

@@ -1,10 +1,27 @@
-import React, { useContext, Fragment, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import PasswordContext from "../../context/password/passwordContext";
 import PasswordItem from "./PasswordItem";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Spinner from "../layout/Spinner";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    paddingTop: "6%",
+    paddingBottom: "25%",
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+}));
 
 const Passwords = () => {
+  const classes = useStyles();
   const passwordContext = useContext(PasswordContext);
   const { passwords, filtered, getPasswords, loading } = passwordContext;
   useEffect(() => {
@@ -12,36 +29,47 @@ const Passwords = () => {
     //eslint-disable-next-line
   }, []);
   if (passwords !== null && passwords.length === 0) {
-    return <h4>Please add a password</h4>;
+    return (
+      <Box
+        style={{
+          maxHeight: "100vh",
+          overflow: "auto",
+          overflowX: "hidden",
+          paddingLeft: "10%",
+        }}
+        className={classes.root}
+      >
+        <Typography variant="h4">Please add a password</Typography>
+      </Box>
+    );
   }
   return (
-    <Fragment>
-      {passwords !== null && !loading ? (
-        <TransitionGroup>
-          {filtered !== null
-            ? filtered.map((password) => (
-                <CSSTransition
-                  key={password._id}
-                  timeout={500}
-                  classNames="item"
-                >
-                  <PasswordItem password={password} />
-                </CSSTransition>
-              ))
-            : passwords.map((password) => (
-                <CSSTransition
-                  key={password._id}
-                  timeout={500}
-                  classNames="item"
-                >
-                  <PasswordItem password={password} />
-                </CSSTransition>
-              ))}
-        </TransitionGroup>
-      ) : (
-        <Spinner />
-      )}
-    </Fragment>
+    <Box
+      style={{ maxHeight: "100vh", overflow: "auto", overflowX: "hidden" }}
+      className={classes.root}
+    >
+      <Grid
+        container
+        spacing={3}
+        justify="center"
+        alignItems="center"
+        direction="column"
+      >
+        {passwords !== null && !loading ? (
+          filtered !== null ? (
+            filtered.map((password) => (
+              <PasswordItem password={password} key={password.siteUrl} />
+            ))
+          ) : (
+            passwords.map((password) => (
+              <PasswordItem password={password} key={password.siteUrl} />
+            ))
+          )
+        ) : (
+          <Spinner />
+        )}
+      </Grid>
+    </Box>
   );
 };
 

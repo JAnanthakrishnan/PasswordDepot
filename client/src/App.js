@@ -4,12 +4,12 @@ import Navbar from "./components/layout/Navbar";
 import Alert from "./components/layout/Alert";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/pages/Home";
-import About from "./components/pages/About";
 import PasswordState from "./context/password/PasswordState";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import NoMatch from "./components/pages/NoMatch";
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
 if (localStorage.token) {
@@ -28,9 +28,9 @@ const App = () => {
                 <Alert />
                 <Switch>
                   <PrivateRoute exact path="/" component={Home} />
-                  <Route exact path="/about" component={About} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
+                  <Route component={NoMatch} />
                 </Switch>
               </div>
             </Fragment>

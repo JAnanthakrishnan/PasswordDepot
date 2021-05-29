@@ -1,10 +1,12 @@
-import React,{Fragment} from 'react'
-import spinner from './spinner.gif';
+import React from "react";
 
-const Spinner = () => 
-        <Fragment>
-            <img src = {spinner} alt="Loading..." style={{width:'200px',margin:'auto',display:'block'}}/>
+import CircularProgress from "@material-ui/core/CircularProgress";
+const Spinner = () => (
+  <div
+    style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+  >
+    <CircularProgress />
+  </div>
+);
 
-        </Fragment>
-
-export default Spinner
+export default Spinner;
